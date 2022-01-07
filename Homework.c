@@ -1,12 +1,12 @@
-# include "stdio.h"
-# include "stdlib.h"
-# include "string.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
 
-typedef struct stackNode 
+typedef struct stackNode
 {
     char data[20];
     struct stackNode *next;
-}StackNode;
+} StackNode;
 typedef StackNode *StackNodePtr;
 
 void push(StackNodePtr *topPtr, char value[20]);
@@ -26,11 +26,11 @@ int main()
         // switch(choice)
         // {
         //     case 1:// push function
-                // printf("input push item : ");
-                // scanf("%s", item);
-                // push(&stackList, item);
-                // printStack(stackList);
-                // break;
+        // printf("input push item : ");
+        // scanf("%s", item);
+        // push(&stackList, item);
+        // printStack(stackList);
+        // break;
         //     case 2:// pop function
         //         pop(&stackList);
         //         printStack(stackList);
@@ -43,7 +43,6 @@ int main()
         push(&stackList, item);
         printStack(stackList);
     }
-    
 
     return 0;
 }
@@ -57,19 +56,26 @@ void push(StackNodePtr *topPtr, char value[])
 {
     StackNodePtr newPtr = malloc(sizeof(StackNode));
 
-    if(newPtr != NULL)
+    if (newPtr != NULL)
     {
-        for (int i = 0; i < strlen(value); i++)
+        int i = 0;
+        for (i = 0; i < strlen(value); i++)
         {
             newPtr->data[i] = value[i];
         }
+        // printf("%d\n", i);
+        if (strlen(value) < strlen(newPtr->data))
+        {
+            newPtr->data[i] = '\0';
+        }
+        // printf("%s\n", newPtr->data);
         newPtr->next = *topPtr;
         *topPtr = newPtr;
-    }else
+    }
+    else
     {
         printf("%s not inserted. No memory available.\n", value);
     }
-
 }
 
 void pop(StackNodePtr *topPtr)
@@ -84,9 +90,11 @@ void printStack(StackNodePtr currentPtr)
     if (isEmpty(currentPtr))
     {
         puts("List is empty.\n");
-    }else
+    }
+    else
     {
         puts("The List is: ");
+        // printf("The List is: \n");
 
         while (currentPtr != NULL)
         {
